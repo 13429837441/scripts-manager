@@ -31,8 +31,8 @@
 
 ### 方式一：下载预编译版本（推荐）
 
-1. 前往 [Releases](https://github.com/hmhm2022/scripts-manager/releases) 页面
-2. 下载文件：   - **Windows**: `ScriptsManager-1.3.9-portable.exe` (便携版)
+1. 前往 [Releases](https://github.com/13429837441/scripts-manager/releases) 页面
+2. 下载文件：   - **Windows**: `ScriptsManager-1.4.0-portable.exe` (便携版)
 3. 运行下载的文件即可使用
 
 ### 方式二：开发环境运行
