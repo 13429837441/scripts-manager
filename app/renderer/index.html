@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脚本管理工具</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部工具栏 -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">
+                    <span class="app-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
+                    </span>
+                    脚本管理
+                </h1>
+                <span class="version-info">v1.4.0</span>
+            </div>
+
+            <div class="header-center">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="搜索脚本..." id="search-input">
+                    <span class="search-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+					</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button class="btn btn-primary" id="add-script-btn">
+                    <span class="btn-icon">+</span>
+                    添加脚本
+                </button>
+                <button class="btn btn-secondary" id="refresh-btn" title="刷新">
+                    <span class="btn-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M2.5 2v6h6M21.5 22v-6h-6"/><path d="M22 11.5A10 10 0 0 0 3.2 7.2M2 12.5a10 10 0 0 0 18.8 4.2"/></svg>
+					</span>
+                </button>
+				<button class="btn btn-secondary" id="github-btn" title="脚本仓库">
+                    <span class="btn-icon">
+						<svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+					</span>
+                </button>
+                <button class="btn btn-secondary" id="timer-btn" title="定时任务">
+                    <span class="btn-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+					</span>
+                </button>
+                <button class="btn btn-secondary" id="settings-btn" title="设置">
+                    <span class="btn-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+					</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 分类标签栏 -->
+        <nav class="category-nav">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#607D8B" d="M3,5H9V11H3V5M5,7V9H7V7H5M11,7H21V9H11V7M11,15H21V17H11V15M5,13V15H7V13H5M3,13H9V19H3V13Z" />
+                        </svg>
+                    </span>
+                    全部脚本
+                    <span class="tab-count" id="count-all">0</span>
+                </button>
+                <button class="category-tab" data-category="python">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#3776AB" d="M11.94,0C5.86,0,6.24,2.68,6.24,2.68l0,2.75h5.8v0.83H3.93c0,0-3.93-0.44-3.93,5.77 s3.43,5.97,3.43,5.97h2.04v-2.87c0,0-0.11-3.43,3.38-3.43h5.82c0,0,3.26,0.05,3.26-3.15V3.25C17.93,3.25,18.28,0,11.94,0z M8.75,1.88c0.58,0,1.04,0.47,1.04,1.04c0,0.58-0.47,1.04-1.04,1.04S7.71,3.49,7.71,2.92C7.71,2.34,8.17,1.88,8.75,1.88z"/>
+                            <path fill="#FFC331" d="M12.05,24c6.08,0,5.7-2.68,5.7-2.68l0-2.75h-5.8v-0.83h8.11c0,0,3.93,0.44,3.93-5.77 s-3.43-5.97-3.43-5.97h-2.04v2.87c0,0,0.11,3.43-3.38,3.43H9.33c0,0-3.26-0.05-3.26,3.15v5.33C6.07,20.75,5.72,24,12.05,24z M15.25,22.12c-0.58,0-1.04-0.47-1.04-1.04c0-0.58,0.47-1.04,1.04-1.04c0.58,0,1.04,0.47,1.04,1.04 C16.29,21.66,15.83,22.12,15.25,22.12z"/>
+                        </svg>
+                    </span>
+                    Python
+                    <span class="tab-count" id="count-python">0</span>
+                </button>
+                <button class="category-tab" data-category="javascript">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#F7DF1E" d="M0,0h24v24H0V0z"/>
+                            <path fill="#000000" d="M16.8,15.7c0.2,0.5,0.5,0.9,1,1.2c0.5,0.3,1,0.4,1.6,0.4c0.5,0,1-0.1,1.4-0.3 c0.4-0.2,0.6-0.5,0.6-0.9c0-0.3-0.1-0.6-0.4-0.8c-0.3-0.2-0.7-0.4-1.2-0.5l-1.2-0.3c-0.8-0.2-1.5-0.5-2-1c-0.5-0.5-0.8-1.1-0.8-1.9 c0-0.5,0.1-1,0.4-1.4c0.3-0.4,0.6-0.7,1.1-1c0.5-0.3,1-0.4,1.7-0.4c0.9,0,1.6,0.2,2.2,0.6c0.6,0.4,1,1,1.2,1.8l-1.8,0.5 c-0.1-0.3-0.3-0.6-0.6-0.8c-0.3-0.2-0.7-0.3-1.1-0.3c-0.4,0-0.8,0.1-1.1,0.3c-0.3,0.2-0.4,0.4-0.4,0.7c0,0.3,0.1,0.5,0.3,0.7 c0.2,0.2,0.5,0.3,0.9,0.4l1.2,0.3c0.9,0.2,1.6,0.6,2.1,1.1c0.5,0.5,0.7,1.1,0.7,1.9c0,0.6-0.2,1.1-0.5,1.5c-0.3,0.4-0.7,0.8-1.3,1 c-0.5,0.2-1.1,0.4-1.8,0.4c-0.9,0-1.7-0.2-2.4-0.7c-0.7-0.5-1.1-1.1-1.3-2L16.8,15.7z M9.8,15.7c0.1,0.3,0.3,0.5,0.6,0.7 c0.3,0.2,0.6,0.2,0.9,0.2c0.4,0,0.8-0.1,1-0.3c0.3-0.2,0.4-0.5,0.4-0.9v-6.2h2v6.2c0,0.6-0.1,1.1-0.4,1.5c-0.3,0.4-0.6,0.8-1.1,1 c-0.5,0.2-1,0.3-1.6,0.3c-0.9,0-1.7-0.2-2.3-0.7c-0.6-0.5-1-1.1-1.1-1.9L9.8,15.7z"/>
+                        </svg>
+                    </span>
+                    JavaScript
+                    <span class="tab-count" id="count-javascript">0</span>
+                </button>
+                <button class="category-tab" data-category="typescript">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#059669" d="M0 16v16h32V0H0zm25.786-1.276a4 4 0 0 1 2.005 1.156c.292.312.729.885.766 1.026c.01.042-1.38.974-2.224 1.495c-.031.021-.156-.109-.292-.313c-.411-.599-.844-.859-1.505-.906c-.969-.063-1.594.443-1.589 1.292a1.26 1.26 0 0 0 .135.599c.214.443.615.708 1.854 1.245c2.292.984 3.271 1.635 3.88 2.557c.682 1.031.833 2.677.375 3.906c-.51 1.328-1.771 2.234-3.542 2.531c-.547.099-1.849.083-2.438-.026c-1.286-.229-2.505-.865-3.255-1.698c-.297-.323-.87-1.172-.833-1.229c.016-.021.146-.104.292-.188l1.188-.688l.922-.536l.193.286c.271.411.859.974 1.214 1.161c1.021.542 2.422.464 3.115-.156c.281-.234.438-.594.417-.958c0-.37-.047-.536-.24-.813c-.25-.354-.755-.656-2.198-1.281c-1.651-.714-2.365-1.151-3.01-1.854a4.2 4.2 0 0 1-.88-1.599c-.12-.453-.151-1.589-.057-2.042c.339-1.599 1.547-2.708 3.281-3.036c.563-.109 1.875-.068 2.427.068zm-7.51 1.339l.01 1.307h-4.167v11.839h-2.948V17.37H7.01v-1.281c0-.714.016-1.307.036-1.323c.016-.021 2.547-.031 5.62-.026l5.594.016z"/>
+                        </svg>
+                    </span>
+                    TypeScript
+                    <span class="tab-count" id="count-typescript">0</span>
+                </button>
+                <button class="category-tab" data-category="batch">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="none" stroke="#8aadf4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 15.5c-.7 0-1.5-.8-1.5-1.5V5c0-.7.8-1.5 1.5-1.5h9c.7 0 1.5.8 1.5 1.5v9c0 .7-.8 1.5-1.5 1.5z"/>
+                                <path d="m1.2 3.8l3.04-2.5S5.17.5 5.7.5h8.4c.66 0 1.4.73 1.4 1.4v7.73a2.7 2.7 0 0 1-.7 1.75l-2.68 3.51M3 8.5l3 2l-3 2"/>
+                            </g>
+                        </svg>
+                    </span>
+                    Batch
+                    <span class="tab-count" id="count-batch">0</span>
+                </button>
+                <button class="category-tab" data-category="powershell">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 1025 1024" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#0284c7" d="M896.428 1024h-768q-53 0-90.5-37.5T.428 896V128q0-53 37.5-90.5t90.5-37.5h768q53 0 90.5 37.5t37.5 90.5v768q0 53-37.5 90.5t-90.5 37.5m-406-562l-187-188q-19-20-46.5-20t-47 19.5t-19.5 47t20 46.5l141 143l-141 142q-20 20-20 47.5t19.5 46.5t47 19t46.5-19l187-188q18-17 19-42t-14-44q2-3-5-10m278 177h-192q-26 0-45 19t-19 45.5t19 45.5t45 19h192q27 0 45.5-19t18.5-45.5t-18.5-45.5t-45.5-19"/>
+                        </svg>
+                    </span>
+                    PowerShell
+                    <span class="tab-count" id="count-powershell">0</span>
+                </button>
+                <button class="category-tab" data-category="bash">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="none" stroke="#a6da95" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 15.5c-.7 0-1.5-.8-1.5-1.5V5c0-.7.8-1.5 1.5-1.5h9c.7 0 1.5.8 1.5 1.5v9c0 .7-.8 1.5-1.5 1.5z"/>
+                                <path d="m1.2 3.8l3.04-2.5S5.17.5 5.7.5h8.4c.66 0 1.4.73 1.4 1.4v7.73a2.7 2.7 0 0 1-.7 1.75l-2.68 3.51"/>
+                                <path d="M6 8.75c0-.69-.54-1.25-1.2-1.25h-.6c-.66 0-1.2.56-1.2 1.25S3.54 10 4.2 10h.6c.66 0 1.2.56 1.2 1.25s-.54 1.25-1.2 1.25h-.6c-.66 0-1.2-.56-1.2-1.25M4.5 6.5v1m0 5v1"/>
+                            </g>
+                        </svg>
+                    </span>
+                    Bash
+                    <span class="tab-count" id="count-bash">0</span>
+                </button>
+                <button class="category-tab" data-category="other">
+                    <span class="tab-icon">
+                        <svg class="icon-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#4f46e5" fill-rule="evenodd" d="M.218 2.09C0 2.518 0 3.078 0 4.2v7.6c0 1.12 0 1.68.218 2.11c.192.376.498.682.874.874c.428.218.988.218 2.11.218h9.6c1.12 0 1.68 0 2.11-.218c.376-.192.682-.498.874-.874c.218-.428.218-.988.218-2.11V4.2c0-1.12 0-1.68-.218-2.11a2 2 0 0 0-.874-.874c-.428-.218-.988-.218-2.11-.218h-9.6c-1.12 0-1.68 0-2.11.218a2 2 0 0 0-.874.874M1 11.8V5h14v6.8c0 .577 0 .949-.024 1.23c-.022.272-.06.372-.085.422a1 1 0 0 1-.437.437c-.05.025-.15.063-.422.085c-.283.023-.656.024-1.23.024h-9.6c-.577 0-.949 0-1.23-.024c-.272-.022-.372-.06-.422-.085a1 1 0 0 1-.437-.437c-.025-.05-.063-.15-.085-.422a17 17 0 0 1-.024-1.23zM2 4a1 1 0 1 0 0-2a1 1 0 0 0 0 2m4-1a1 1 0 1 1-2 0a1 1 0 0 1 2 0m2 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2" clip-rule="evenodd"/>
+                        </svg>
+                    </span>
+                    其他
+                    <span class="tab-count" id="count-other">0</span>
+                </button>
+            </div>
+
+            <div class="category-actions">
+                <select id="sort-select" class="sort-select">
+                    <option value="name">按名称排序</option>
+                    <option value="type">按类型排序</option>
+                    <option value="created">按创建时间</option>
+                    <option value="used">按使用频率</option>
+                </select>
+            </div>
+        </nav>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 脚本卡片网格 -->
+            <div class="scripts-grid" id="scripts-grid">
+                <!-- 欢迎屏幕 -->
+                <div class="welcome-screen" id="welcome-screen">
+                    <div class="welcome-content">
+                        <div class="welcome-icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h5l2 3h9a2 2 0 0 1 2 2v2M19 15v6M16 18h6"/></svg>
+						</div>
+                        <h2>欢迎使用脚本管理器</h2>
+                        <p>点击"添加脚本"开始管理您的脚本，或者将脚本文件拖拽到这里。</p>
+                        <button class="btn btn-primary btn-large" id="welcome-add-btn">
+                            <span class="btn-icon">+</span>
+                            添加第一个脚本
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 加载状态 -->
+                <div class="loading-screen" id="loading-screen" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>正在加载脚本...</p>
+                </div>
+
+                <!-- 空状态 -->
+                <div class="empty-screen" id="empty-screen" style="display: none;">
+                    <div class="empty-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+					</div>
+                    <h3>没有找到脚本</h3>
+                    <p>尝试调整搜索条件或添加新脚本。</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- 状态栏 -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span class="status-item">
+                    <span class="status-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+					</span>
+                    总计: <span id="total-scripts">0</span> 个脚本
+                </span>
+                <span class="status-item">
+                    <span class="status-icon">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+					</span>
+                    运行中: <span id="running-scripts">0</span> 个
+                </span>
+            </div>
+
+            <div class="status-right">
+                <span class="status-item" id="last-update">
+                    最后更新: 从未
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 模态对话框 -->
+    <div id="modal-overlay" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">对话框</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- 动态内容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div id="context-menu" class="context-menu" style="display: none;">
+        <div class="context-menu-item" id="context-launch">
+            <span class="menu-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+			</span>
+            启动脚本
+        </div>
+        <div class="context-menu-item" id="context-edit">
+            <span class="menu-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+			</span>
+            编辑信息
+        </div>
+        <div class="context-menu-item" id="context-schedule">
+            <span class="menu-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+			</span>
+            设置定时
+        </div>
+        <div class="context-menu-item" id="context-copy">
+            <span class="menu-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+			</span>
+            复制路径
+        </div>
+        <div class="context-menu-item" id="context-open-folder">
+            <span class="menu-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+			</span>
+            打开文件夹
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item danger" id="context-delete">
+            <span class="menu-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+			</span>
+            删除脚本
+        </div>
+    </div>
+
+    <!-- 通知容器 -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- 加载脚本 -->
+	<script src="git-manager.js"></script>
+    <script src="task-manager.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>

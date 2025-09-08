@@ -1,0 +1,105 @@
+{
+  "name": "scripts-manager",
+  "version": "1.4.0",
+  "description": "Scripts Manager - 轻量级脚本管理工具",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "build-linux": "electron-builder --linux",
+    "build-mac": "electron-builder --mac",
+    "build-portable": "electron-builder --win portable",
+    "build-installer": "electron-builder --win nsis",
+    "dist": "electron-builder --publish=never",
+    "dist-all": "electron-builder --win --linux --mac --publish=never",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "script",
+    "manager",
+    "desktop",
+    "electron"
+  ],
+  "author": "Scripts Manager Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^24.6.4",
+    "rimraf": "^6.0.1",
+    "sharp": "^0.34.2"
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.3",
+	"adm-zip": "0.5.16",
+	"axios": "1.11.0",
+	"crypto-js": "4.2.0"
+  },
+  "build": {
+    "appId": "com.scriptsmanager.app",
+    "productName": "Scripts Manager",
+    "directories": {
+      "output": "dist-mac-install"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "icon": "assets/icon-256.png",
+    "win": {
+      "icon": "assets/icon-256.png",
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "ScriptsManager-${version}-portable.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "ScriptsManager-${version}-setup.exe",
+      "shortcutName": "Scripts Manager",
+      "uninstallDisplayName": "Scripts Manager"
+    },
+    "linux": {
+      "icon": "assets/icon-256.png",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "mac": {
+      "icon": "assets/icon-256.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    }
+  }
+}
