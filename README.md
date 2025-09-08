@@ -1,0 +1,111 @@
+# Scripts Manager
+
+一个轻量级桌面脚本管理工具，基于 Electron 构建，用于管理、启动和定时执行各种类型的脚本（Python、JavaScript、TypeScript、Batch、PowerShell 等），支持类似青龙面板的定时任务调度功能。
+
+## 功能特点
+
+- 🖥️ **原生桌面应用**: 基于 Electron，提供原生桌面体验
+- 🚀 **脚本启动器**: 点击即启动，脚本在独立窗口中运行
+- 📁 **多脚本类型支持**: Python、JavaScript、TypeScript、Batch、PowerShell、Bash
+- 🎨 **现代化界面**: 卡片网格布局，类似应用商店体验
+- 🔍 **智能搜索**: 支持按名称、类型、描述搜索脚本
+- 📂 **文件浏览**: 内置文件选择器，方便添加脚本
+- 🏷️ **分类管理**: 按脚本类型自动分类和过滤
+- ⏰ **定时任务**: 轻量级任务调度器，支持间隔、每日、每周执行
+- 🌍 **跨平台支持**: Windows、macOS、Linux 全平台兼容
+- 🚀 **绿色便携**: 支持打包为便携版可执行文件
+- 🌙 **深色主题**: 支持浅色/深色主题切换
+- 🔔 **系统托盘**: 最小化到系统托盘，后台运行
+- 📧 **联系方式**: 状态栏显示GitHub仓库链接和作者邮箱，方便反馈和支持
+
+## 安装和运行
+
+### 方式一：下载预编译版本（推荐）
+
+1. 前往 [Releases](https://github.com/hmhm2022/scripts-manager/releases) 页面
+2. 下载文件：   - **Windows**: `ScriptsManager-1.3.9-portable.exe` (便携版)
+3. 运行下载的文件即可使用
+
+### 方式二：开发环境运行
+
+#### 前提条件
+- Node.js (v16+)
+- npm
+
+#### 步骤
+
+1. **克隆项目**
+   ```bash
+   git clone https://github.com/hmhm2022/scripts-manager.git
+   cd scripts-manager
+   ```
+
+2. **安装依赖**
+   ```bash
+   npm install
+   ```
+
+3. **启动应用**
+   ```bash
+   # 普通模式
+   npm start
+
+   # 开发模式（带开发者工具）
+   npm run dev
+   ```
+
+### 打包分发
+
+```bash
+# Windows 便携版
+npm run build-portable
+
+# Windows 安装程序
+npm run build-installer
+
+# macOS DMG
+npm run build-mac
+
+# Linux AppImage
+npm run build-linux
+
+# 构建所有平台
+npm run dist-all
+```
+
+## 使用说明
+
+### 脚本管理
+
+- **添加脚本**: 点击顶部"+"按钮，填写脚本信息
+- **编辑脚本**: 右键点击脚本卡片选择"编辑"
+- **删除脚本**: 右键点击脚本卡片选择"删除"
+- **搜索脚本**: 使用顶部搜索框
+- **分类过滤**: 点击分类标签（全部、Python、JavaScript等）
+
+### 定时任务
+
+- **创建定时任务**: 点击顶部⏰按钮，选择"新建任务"
+- **管理任务**: 在任务管理界面中编辑、启用/禁用、删除任务
+- **快速设置**: 右键点击脚本卡片选择"设置定时"
+- **立即执行**: 在任务列表中点击"立即执行"按钮
+
+### 脚本启动
+
+1. 点击脚本卡片上的启动按钮（▶）或右键选择"启动脚本"
+2. 脚本将在新的控制台窗口中启动
+3. 脚本独立运行，可以关闭管理器应用
+
+### 支持的脚本类型
+
+| 脚本类型 | 扩展名 | Windows | macOS | Linux | 运行环境要求 |
+|---------|--------|---------|-------|-------|-------------|
+| **Python** | `.py`, `.pyw` | ✅ | ✅ | ✅ | Python 3.x |
+| **JavaScript** | `.js` | ✅ | ✅ | ✅ | Node.js |
+| **TypeScript** | `.ts` | ✅ | ✅ | ✅ | ts-node |
+| **Batch** | `.bat`, `.cmd` | ✅ | ❌ | ❌ | Windows 内置 |
+| **PowerShell** | `.ps1` | ✅ | ✅ | ✅ | PowerShell Core |
+| **Bash** | `.sh` | ✅* | ✅ | ✅ | Bash Shell |
+| **macOS 脚本** | `.command`, `.tool` | ❌ | ✅ | ❌ | macOS 内置 |
+
+> *Windows 上的 Bash 脚本需要 WSL、Git Bash 或 Cygwin 环境
