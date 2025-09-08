@@ -1,4 +1,7 @@
 # Scripts Manager
+## 郑重声明
+### 项目来源
+> **Scripts Manager** - https://github.com/hmhm2022/scripts-manager
 
 一个轻量级桌面脚本管理工具，基于 Electron 构建，用于管理、启动和定时执行各种类型的脚本（Python、JavaScript、TypeScript、Batch、PowerShell 等），支持类似青龙面板的定时任务调度功能。
 
