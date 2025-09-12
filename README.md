@@ -33,7 +33,9 @@
 
 1. 前往 [Releases](https://github.com/13429837441/scripts-manager/releases) 页面
 2. 下载文件：   - **Windows**: `ScriptsManager-1.4.0-portable.exe` (便携版)
-3. 运行下载的文件即可使用
+3. 下载文件：   - **Macos**: `Scripts Manager-1.4.0-arm64.dmg` (arm64)
+4. 下载文件：   - **Macos**: `Scripts Manager-1.4.0.dmg` (x64)
+5. 运行下载的文件即可使用
 
 ### 方式二：开发环境运行
 
