@@ -32,10 +32,11 @@
 ### 方式一：下载预编译版本（推荐）
 
 1. 前往 [Releases](https://github.com/13429837441/scripts-manager/releases) 页面
-2. 下载文件：   - **Windows**: `ScriptsManager-1.4.0-portable.exe` (便携版)
-3. 下载文件：   - **Macos**: `Scripts Manager-1.4.0-arm64.dmg` (arm64)
-4. 下载文件：   - **Macos**: `Scripts Manager-1.4.0.dmg` (x64)
-5. 运行下载的文件即可使用
+2. 下载文件：   - **Windows**: `ScriptsManager-1.4.0-portable.exe` (便携版，默认安装路径)
+3. 下载文件：   - **Windows**: `ScriptsManager-1.4.0-setup.exe` (自定义安装版)
+4. 下载文件：   - **Macos**: `Scripts Manager-1.4.0-arm64.dmg` (arm64)
+5. 下载文件：   - **Macos**: `Scripts Manager-1.4.0.dmg` (x64)
+6. 运行下载的文件即可使用
 
 ### 方式二：开发环境运行
 
