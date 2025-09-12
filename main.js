@@ -643,11 +643,6 @@ class ScriptManagerApp {
     console.log('创建系统托盘...');
     this.tray = new Tray(trayIcon);
 
-    // 在 macOS 上设置为模板图标以获得更好的系统集成
-    if (process.platform === 'darwin') {
-      this.tray.setTemplateImage(true);
-    }
-
     this.tray.setToolTip('脚本管理器');
     console.log('托盘创建成功');
 
@@ -677,18 +672,22 @@ class ScriptManagerApp {
 
     // 点击托盘图标显示窗口
     this.tray.on('click', () => {
-      if (this.mainWindow) {
-        if (this.mainWindow.isVisible()) {
-          if (this.mainWindow.isMinimized()) {
-            this.mainWindow.restore();
+	  try{
+        if (this.mainWindow) {
+          if (this.mainWindow.isVisible()) {
+            if (this.mainWindow.isMinimized()) {
+              this.mainWindow.restore();
+            }
+          } else {
+            this.mainWindow.show();
           }
+          this.mainWindow.focus();
         } else {
-          this.mainWindow.show();
+          this.createWindow();
         }
-        this.mainWindow.focus();
-      } else {
-        this.createWindow();
-      }
+	  } catch (error) {
+	    this.activateMainWindow();
+	  }
     });
     console.log('托盘点击事件设置完成');
   }
