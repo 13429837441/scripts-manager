@@ -48,7 +48,7 @@
 
 1. **克隆项目**
    ```bash
-   git clone https://github.com/hmhm2022/scripts-manager.git
+   git clone https://github.com/13429837441/scripts-manager.git
    cd scripts-manager
    ```
 
