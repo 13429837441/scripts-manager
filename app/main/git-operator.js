@@ -15,7 +15,7 @@ class GitOperator {
 	this.ensureDataFile();
 	// 密钥和数据
 	this.secretKey = '8VBkO5amPcPrXV3n';
-	this.iv = CryptoJS.enc.Utf8.parse('1122334455667788'); // 16 字节 IV
+	this.iv = CryptoJS.enc.Utf8.parse('1122334455667788'); // 16 字节 IV, 可自定义配置
 	// GitHub API地址
 	this.GITHUB_API = 'https://api.github.com';
 	this.GITHUB_LOAD = 'https://raw.githubusercontent.com';
@@ -89,7 +89,7 @@ class GitOperator {
 		// 加密数据
 	    const encryptedData = this.dataEncrypts(JSON.stringify(data));
 		const newEncrypt = {
-			"mark": data.Name + '_' + data.repo,
+			"mark": data.Name + '_' + data.repo + '_' + new Date().getTime(),
 			"key": encryptedData
 		};
 		
