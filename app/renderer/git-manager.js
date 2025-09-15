@@ -497,6 +497,7 @@ class GitManager {
 		  // 删除目录树缓存	
 		  localStorage.removeItem("gitTree");
 		  dataContainer.innerHTML = this.renderGitRepoTree(JSON.parse(result.content));
+		  this.bindGitRepoTree();
 		  // 缓存目录树
 		  localStorage.setItem('gitTree', result.content);
 		} else {
@@ -631,6 +632,28 @@ class GitManager {
           </div>
 		</div> 
 	  `;
+  }
+
+  /**
+   * 绑定密钥表单事件
+   */
+  bindGitRepoTree() {
+    document.querySelectorAll('#download-git-bth').forEach(btn => {
+	  btn.addEventListener('click', async (e) => {
+	    const overlay = document.getElementById('overlay');
+	    overlay.style.display = 'flex';
+	  
+	    // 下载仓库脚本
+	    const gitKey = localStorage.getItem('gitKey');
+	    const result = await window.electronAPI.downLoadFileFromGithub(gitKey, e.target.innerText);
+	    overlay.style.display = 'none';
+	    if (result.success) {
+		  this.showNotification('脚本保存路径：' + result.path, 'success');
+	    } else {
+		  this.showNotification('脚本下载失败: ' + result.error, 'error');
+	    }
+	  });
+    });
   }
 
   /**
