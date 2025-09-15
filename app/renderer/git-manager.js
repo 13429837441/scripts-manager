@@ -494,6 +494,8 @@ class GitManager {
 		const result = await window.electronAPI.getRepoTree(gitKey);
 		loading.style.display = 'none';
 		if (result.success) {
+		  // 删除目录树缓存	
+		  localStorage.removeItem("gitTree");
 		  dataContainer.innerHTML = this.renderGitRepoTree(JSON.parse(result.content));
 		  // 缓存目录树
 		  localStorage.setItem('gitTree', result.content);
