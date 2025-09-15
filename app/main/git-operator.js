@@ -89,7 +89,7 @@ class GitOperator {
 		// 加密数据
 	    const encryptedData = this.dataEncrypts(JSON.stringify(data));
 		const newEncrypt = {
-			"mark": data.Name,
+			"mark": data.Name + '_' + data.repo,
 			"key": encryptedData
 		};
 		
